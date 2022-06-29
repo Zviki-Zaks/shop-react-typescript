@@ -1,0 +1,10 @@
+import React from 'react'
+
+export const Login = () => {
+
+    return (
+        <section className="login-page">
+
+        </section>
+    )
+}

@@ -10,14 +10,19 @@ interface Props {
 
 export const ProductTable = ({ products, dispatch }: Props) => {
     return (
-        <section className="Product-table">
-            <table>
-                <tbody>
-                    {products.map(product =>
-                        <ProductRow product={product} dispatch={dispatch} key={product.id} />
-                    )}
-                </tbody>
-            </table>
+        <section className="product-table">
+            {products.length ?
+                <table>
+                    <thead><tr><th>Name</th><th>Price</th><th></th></tr></thead>
+                    <tbody>
+                        {products.map(product =>
+                            <ProductRow product={product} dispatch={dispatch} key={product.id} />
+                        )}
+                    </tbody>
+                </table>
+                :
+                <div>Cart is empty</div>
+            }
         </section>
     )
 }

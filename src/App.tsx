@@ -2,7 +2,8 @@ import React, { createContext, useReducer, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './assets/css/styles.scss';
 import { AppHeader } from './components/AppHeader';
-import { CartPage } from './components/Cart';
+import { CartPage } from './components/Cart-page';
+import { Login } from './components/Login-page';
 import ShopApp from './components/ShopApp';
 import { useCartReducer } from './hooks/useCartReducer';
 import { Cart } from './models/cart.model';
@@ -35,6 +36,7 @@ const App: React.FC = () => {
         <AppHeader />
         <Routes>
           <Route path='/' element={<ShopApp />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/cart' element={<CartPage />} />
         </Routes>
       </CartContext.Provider>

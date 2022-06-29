@@ -10,9 +10,10 @@ export const AppHeader = () => {
             <section className="container">
                 <div className="shop-logo">SHOP</div>
                 <nav className="app-nav">
-                    <NavLink className="shop" to={'/'}>shop</NavLink>
+                    <NavLink className="shop" to={'/'}>Shop</NavLink>
+                    <NavLink className="shop" to={'/login'}>Login</NavLink>
                     <NavLink className="cart" to={'/cart'}>
-                        cart
+                        Cart
                         <span className="product-count">{cartCount ? cartCount : ''}</span>
                     </NavLink>
                 </nav>

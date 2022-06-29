@@ -5,7 +5,6 @@ import { ProductTable } from './ProductTable'
 
 export const CartPage: React.FC = () => {
     const { cart, cartDispatch } = useContext(CartContext)
-    console.log('cart', cart)
     return (
         <section className="cart-page container">
             <h1 className="title">Your Cart</h1>

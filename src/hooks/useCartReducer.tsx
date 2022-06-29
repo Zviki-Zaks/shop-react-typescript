@@ -7,14 +7,12 @@ import { CartProduct, Product } from "../models/product.model"
 interface Action { type: string, payload: Product }
 
 const cartReducer = (state: Cart, action: Action) => {
-  console.log('cartReducer invoked')
   let currProduct = state.products.find(product => product.id === action.payload.id)
   switch (action.type) {
 
     case 'ADD_TO_CART':
       var amount = +(state.amount + action.payload.price).toFixed(2)
       if (currProduct?.count) {
-        console.log('if', currProduct)
         currProduct.count++
         return {
           ...state,
@@ -58,8 +56,5 @@ export const useCartReducer = () => {
     if (action.type === 'ADD_TO_CART' && !product.inStock) return alert('Not in stock')
     else return dispatch({ ...action, payload: product })
   }
-
-
-
   return { cart, cartDispatch }
 }
