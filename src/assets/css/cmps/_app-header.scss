@@ -1,0 +1,33 @@
+.app-header {
+    height: 60px;
+    background-image: linear-gradient(to bottom, rgba(30, 252, 60, 0.5), rgb(61, 199, 73, 0.5), rgb(41, 145, 55, 0.5));
+    padding: 1em 2em;
+    box-shadow: inset 0px -1px 5px 0px rgb(44, 51, 45);
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+
+        .shop-logo {
+            flex-grow: 1;
+        }
+        .app-nav {
+            display: flex;
+            gap: 10px;
+
+            .cart {
+                position: relative;
+
+                .product-count {
+                    font-size: 0.7em;
+                    background-color: red;
+                    color: white;
+                    border-radius: 50%;
+                    padding: 0 0.4em;
+                    position: absolute;
+                    width: 15px;
+                }
+            }
+        }
+    }
+}

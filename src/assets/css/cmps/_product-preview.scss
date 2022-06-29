@@ -1,0 +1,10 @@
+.product-preview {
+    background-image: linear-gradient(to bottom, rgb(15, 122, 29), rgb(61, 199, 73), rgb(41, 145, 55));
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 5px 1px rgb(44, 51, 45);
+
+    > * {
+        margin-block-end: 10px;
+    }
+}

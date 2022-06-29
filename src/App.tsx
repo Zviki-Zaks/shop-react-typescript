@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useReducer, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import './assets/css/styles.scss';
+import { AppHeader } from './components/AppHeader';
+import { CartPage } from './components/Cart';
+import ShopApp from './components/ShopApp';
+import { useCartReducer } from './hooks/useCartReducer';
+import { Cart } from './models/cart.model';
+import { CartAction } from './models/cartAction.model';
 
-function App() {
+interface CartCont {
+  cart: Cart,
+  // setCart?: React.Dispatch<React.SetStateAction<Cart>>
+  cartDispatch?: React.Dispatch<CartAction>
+}
+const initialContext: CartCont = {
+  cart: {
+    products: [],
+    amount: 0
+  },
+}
+export const CartContext = createContext(initialContext)
+
+const App: React.FC = () => {
+  // const [cart, setCart] = useState<Cart>({
+  //   products: [],
+  //   amount: 0
+  // })
+  const { cart, cartDispatch } = useCartReducer()
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CartContext.Provider value={{ cart, cartDispatch }}>
+        <AppHeader />
+        <Routes>
+          <Route path='/' element={<ShopApp />} />
+          <Route path='/cart' element={<CartPage />} />
+        </Routes>
+      </CartContext.Provider>
+
     </div>
   );
 }
