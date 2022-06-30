@@ -20,7 +20,8 @@ function login(userCard: UserCart): Promise<User> | void {
         if (user) {
             loginUser = user
             return new Promise((resolve, reject) => resolve(user))
-        }
+            // return Promise.resolve(user)
+        } else throw new Error()
     } catch (err) {
         throw new Error("Can`t login");
     }
