@@ -10,9 +10,12 @@ export const shopService = {
 
 const KEY: string = 'SHOP_DB'
 
-async function query(): Promise<Product[]> {
+async function query(filterBy?: { name?: string, category?: string }): Promise<Product[]> {
     return new Promise((resolve, reject) => {
-        const products = _load() || _createProducts()
+        let products = _load() || _createProducts()
+        if (filterBy) {
+            products = _filter(products, filterBy)
+        }
         resolve(products)
     })
 }
@@ -35,6 +38,19 @@ async function post() {
 
 async function put() {
 
+}
+
+function _filter(items: Product[], { name, category }: { name?: string, category?: string }): Product[] {
+
+    return items.filter(item => {
+        if (!name && !category) return item
+        if (name) {
+            if (item.name.toLowerCase().includes(name.toLowerCase())) { return item }
+        }
+        if (category) {
+            if (item.category.toLowerCase().includes(category.toLowerCase())) { return item }
+        }
+    })
 }
 
 function _createProducts(): Product[] {

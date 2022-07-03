@@ -1,12 +1,17 @@
-/* BASICS */
+// SETUPS
+@import "./setups/variables";
+@import "./setups/functions";
+
+// BASICS
 @import "./basics/base";
 @import "./basics/typography";
 @import "./basics/helpers";
 
-/* COMPONENTS */
+// COMPONENTS
 @import "./cmps/shop-app";
 @import "./cmps/product-list";
 @import "./cmps/product-preview";
 @import "./cmps/app-header";
 @import "./cmps/cart-page";
 @import "./cmps/product-table";
+@import "./cmps/login-page";

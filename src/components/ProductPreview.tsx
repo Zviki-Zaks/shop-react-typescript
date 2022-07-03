@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-// import { CartContext } from '../App'
+import React from 'react'
 import { Product } from '../models/product.model'
 
 interface Props {
@@ -10,10 +9,15 @@ interface Props {
 export const ProductPreview: React.FC<Props> = ({ product, onAddToCart }: Props) => {
     return (
         <section className="product-preview">
-            <h3 className="product-name">{product.name}</h3>
-            <h4 className="product-category">{product.category}</h4>
+            <div className="info">
+                <div className="flex space-between align-center">
+                    <h3 className="product-name">{product.name}</h3>
+                    <span className="price">{product.price} kg</span>
+                </div>
+                <p className="product-category">{product.category}</p>
+            </div>
             <div className="actions">
-                <button onClick={() => { onAddToCart(product.id) }}>Add To Cart</button>
+                <button className="add-btn" onClick={() => { onAddToCart(product.id) }}>Add To Cart</button>
             </div>
         </section>
     )

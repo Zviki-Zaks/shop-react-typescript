@@ -2,3 +2,13 @@
     max-width: 1000px;
     margin: 0 auto;
 }
+
+.flex {
+    display: flex;
+    &.space-between {
+        justify-content: space-between;
+    }
+    &.align-center {
+        align-items: center;
+    }
+}

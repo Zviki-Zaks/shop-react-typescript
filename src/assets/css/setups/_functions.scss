@@ -1,0 +1,4 @@
+@function rem($size) {
+    $res: $size / 16px;
+    @return $res * 1rem;
+}

@@ -1,10 +1,28 @@
 .product-preview {
-    background-image: linear-gradient(to bottom, rgb(15, 122, 29), rgb(61, 199, 73), rgb(41, 145, 55));
-    padding: 1em;
+    $bgc: lighten($primary, 20%);
+    background-image: linear-gradient(
+        to bottom,
+        $bgc 0%,
+        transparentize($bgc, 0.5) 20%,
+        transparentize($bgc, 0.5) 80%,
+        $bgc 100%
+    );
     border-radius: 5px;
-    box-shadow: inset 0px 0px 5px 1px rgb(44, 51, 45);
+    box-shadow: inset 0px 0px 5px 1px rgb(86, 88, 99);
 
     > * {
         margin-block-end: 10px;
+    }
+    .info {
+        padding: 1em;
+    }
+    .actions {
+        background-color: rgba(0, 0, 0, 0.15);
+        padding: 1em;
+        .add-btn {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }

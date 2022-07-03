@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { userService } from '../services/userService'
 
-export const Login = () => {
+export const Login: React.FC = () => {
     const { fields, register } = useFormRegister({
         username: '',
         password: ''
@@ -25,14 +25,18 @@ export const Login = () => {
         setTimeout(() => { setError('') }, 2000)
     }
     return (
-        <section className="login-page">
+        <section className="login-page container">
             <form onSubmit={(ev) => ev.preventDefault()}>
+                <label htmlFor="username">User Name</label>
                 <input type="text" {...register('username')} />
+                <label htmlFor="password">Password</label>
                 <input type="text" {...register('password')} />
-                <button onClick={() => login('login')}>Login</button>
-                <button onClick={() => login('signup')}>Signup</button>
+                <div className="btns">
+                    <button className="login-btn" onClick={() => login('login')}>Login</button>
+                    <button className="signup-btn" onClick={() => login('signup')}>Signup</button>
+                </div>
+                <div className="error"><p>{error}</p></div>
             </form>
-            <div className="error"><p>{error}</p></div>
         </section>
     )
 }

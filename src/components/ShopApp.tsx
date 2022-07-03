@@ -2,45 +2,44 @@ import React, { useContext, useEffect, useState } from 'react'
 import { shopService } from '../services/shopService'
 import { Product } from '../models/product.model'
 import { ProductList } from './ProductList'
-import { Cart } from '../models/cart.model'
-import { useCartReducer } from '../hooks/useCartReducer'
 import { CartContext } from '../App'
+import { useFormRegister } from '../hooks/useFormRegister'
+import { ProductFilter } from './ProductFilter'
 
 
 
 const ShopApp: React.FC = () => {
     const [products, setProducts] = useState<Product[] | null>(null)
+    const filter = useFormRegister({ name: '', category: '' })
     useEffect(() => {
-        loadProducts()
-    }, [])
+        loadProducts(filter.fields)
+    }, [filter.fields])
+    const [categories, setCategories] = useState<string[] | null>()
+    useEffect(() => {
+        const categories = products?.reduce((list: string[], product: Product) => {
+            if (list.includes(product.category)) list.push(product.category)
+            return list
+        }, [])
+        setCategories(categories)
+    }, [products])
 
-    const loadProducts = async (): Promise<void> => {
-        const products = await shopService.query()
+
+    const loadProducts = async (filterBy: { name?: string, category?: string }): Promise<void> => {
+        console.log('filterBy', filterBy)
+        const products = await shopService.query(filterBy)
         setProducts(products)
     }
 
-    const loadProduct = async (productId: string): Promise<Product> => {
-        return await shopService.getById(productId)
-    }
-
     const { cart, cartDispatch } = useContext(CartContext)
-    // const [cart, cartDispatch] = useCartReducer()
 
     const onAddToCart = async (productId: string) => {
-        // const product = await loadProduct(productId)
-        // console.log('product', product)
-        // if (!product.inStock) return alert('Not in stock')
-        // const newCart: Cart = { products: [...cart.products, { ...product }], amount: cart.amount + product.price }
-        // if (dispatch) dispatch({ type: 'ADD_TO_CART', payload: product })
-        // if (setCart) setCart(newCart)
-        // console.log('cart', cart)
         if (typeof cartDispatch === 'function')
             cartDispatch({ type: 'ADD_TO_CART', payload: productId })
     }
 
-
     return (
         <section className="shop-app container">
+            {categories && <ProductFilter {...filter} options={categories} />}
             {products && <ProductList products={products} onAddToCart={onAddToCart} />}
         </section>
     )

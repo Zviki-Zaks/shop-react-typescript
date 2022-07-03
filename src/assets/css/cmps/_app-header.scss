@@ -1,8 +1,11 @@
 .app-header {
     height: 60px;
-    background-image: linear-gradient(to bottom, rgba(30, 252, 60, 0.5), rgb(61, 199, 73, 0.5), rgb(41, 145, 55, 0.5));
+    // background-image: linear-gradient(to bottom, rgba(30, 252, 60, 0.5), rgb(61, 199, 73, 0.5), rgb(41, 145, 55, 0.5));
+    $bgc: darken($primary, 40%);
+    background-color: $bgc;
+    color: lighten($bgc, $amount: 60%);
     padding: 1em 2em;
-    box-shadow: inset 0px -1px 5px 0px rgb(44, 51, 45);
+    box-shadow: inset 0 -1px 3px darken($bgc, 20%);
 
     .container {
         display: flex;

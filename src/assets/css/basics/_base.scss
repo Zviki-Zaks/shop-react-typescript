@@ -38,7 +38,8 @@ a {
 button {
     font-family: inherit;
     cursor: pointer;
-
+    border: none;
+    background-color: transparent;
     * {
         pointer-events: none;
     }
@@ -46,7 +47,13 @@ button {
 
 input {
     font-family: inherit;
-    text-align: inherit;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 2px solid grayscale($primary);
+    &:focus-visible {
+        border: 2px solid $primary;
+        outline: none;
+    }
 }
 
 ul,
