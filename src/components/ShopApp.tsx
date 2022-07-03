@@ -23,9 +23,7 @@ const ShopApp: React.FC = () => {
         setCategories(categories)
     }, [products])
 
-
     const loadProducts = async (filterBy: { name?: string, category?: string }): Promise<void> => {
-        console.log('filterBy', filterBy)
         const products = await shopService.query(filterBy)
         setProducts(products)
     }

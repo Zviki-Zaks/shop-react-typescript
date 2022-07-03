@@ -10,11 +10,11 @@
     border-radius: 5px;
     box-shadow: inset 0px 0px 5px 1px rgb(86, 88, 99);
 
-    > * {
-        margin-block-end: 10px;
-    }
     .info {
         padding: 1em;
+        > * {
+            margin-block-end: 10px;
+        }
     }
     .actions {
         background-color: rgba(0, 0, 0, 0.15);

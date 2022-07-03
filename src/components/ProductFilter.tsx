@@ -17,8 +17,8 @@ interface Props {
 export const ProductFilter: React.FC<Props> = ({ register, options }) => {
     return (
         <div className="product-filter">
-            <input type="text" {...register('name')} />
-            <input type="text" {...register('category')} />
+            <input type="text" {...register('name')} placeholder="Search by name" />
+            <input type="text" {...register('category')} placeholder="Search by category" />
         </div>
     )
 }
