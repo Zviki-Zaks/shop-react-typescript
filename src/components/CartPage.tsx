@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { useCartReducer } from '../hooks/useCartReducer'
 import { CartContext } from '../App'
 import { ProductTable } from './ProductTable'
 import { CartEnd } from './CartEnd'

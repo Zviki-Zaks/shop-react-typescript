@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './assets/css/styles.scss';
 import { AppHeader } from './components/AppHeader';
@@ -8,38 +8,38 @@ import ShopApp from './components/ShopApp';
 import { useCartReducer } from './hooks/useCartReducer';
 import { Cart } from './models/cart.model';
 import { CartAction } from './models/cartAction.model';
+import { User } from './models/user.model';
 
-interface CartCont {
+interface CartCtx {
   cart: Cart,
-  // setCart?: React.Dispatch<React.SetStateAction<Cart>>
   cartDispatch?: React.Dispatch<CartAction>
 }
-const initialContext: CartCont = {
-  cart: {
-    products: [],
-    amount: 0
-  },
+
+interface UserCtx {
+  loggedInUser: User | null
+  setLoggedInUser: React.Dispatch<React.SetStateAction<User | null>>
 }
-export const CartContext = createContext(initialContext)
+
+export const CartContext = createContext<CartCtx>(null!)
+export const UserContext = createContext<UserCtx>(null!)
 
 const App: React.FC = () => {
-  // const [cart, setCart] = useState<Cart>({
-  //   products: [],
-  //   amount: 0
-  // })
   const { cart, cartDispatch } = useCartReducer()
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null)
 
 
   return (
     <div className="App">
-      <CartContext.Provider value={{ cart, cartDispatch }}>
-        <AppHeader />
-        <Routes>
-          <Route path='/' element={<ShopApp />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/cart' element={<CartPage />} />
-        </Routes>
-      </CartContext.Provider>
+      <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+        <CartContext.Provider value={{ cart, cartDispatch }}>
+          <AppHeader />
+          <Routes>
+            <Route path='' element={<ShopApp />} />
+            <Route path='login' element={<Login />} />
+            <Route path='cart' element={<CartPage />} />
+          </Routes>
+        </CartContext.Provider>
+      </UserContext.Provider>
 
     </div>
   );

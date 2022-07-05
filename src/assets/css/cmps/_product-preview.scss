@@ -19,6 +19,7 @@
     .actions {
         background-color: rgba(0, 0, 0, 0.15);
         padding: 1em;
+        box-shadow: inset 0px 4px 5px 3px rgb(218 234 239 / 50%);
         .add-btn {
             &:hover {
                 text-decoration: underline;
