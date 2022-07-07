@@ -12,7 +12,6 @@ export const EditShop: React.FC<OutletProps> = () => {
     const { products } = useProducts()
     return (
         <section className="edit-shop">
-            Edit
             {products && <ProductTable products={products} />}
         </section>
     )

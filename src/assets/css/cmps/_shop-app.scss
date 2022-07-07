@@ -1,3 +1,9 @@
 .shop-app {
     padding: 20px;
+    a {
+        display: inline-block;
+        text-decoration: underline;
+        font-size: rem(14px);
+        margin-block-end: 10px;
+    }
 }

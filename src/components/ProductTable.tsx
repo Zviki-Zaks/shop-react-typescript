@@ -4,7 +4,7 @@ import { CartProduct, Product } from '../models/product.model'
 import { ProductRow } from './ProductRow'
 
 interface Props {
-    products: Product[] | CartProduct[],
+    products: Product[]
     dispatch?: React.Dispatch<CartAction>
 }
 
@@ -12,7 +12,7 @@ export const ProductTable = ({ products, dispatch }: Props) => {
     return (
         <section className="product-table">
             <table>
-                <thead><tr><th>Name</th><th>Price</th><th></th></tr></thead>
+                <thead><tr><th>Name</th><th>Price</th><th>{products[0].inStock ? 'In Stock' : ''}</th></tr></thead>
                 <tbody>
                     {products.map(product =>
                         <ProductRow product={product} dispatch={dispatch} key={product.id} />

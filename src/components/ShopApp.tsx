@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { shopService } from '../services/shopService'
 import { Product } from '../models/product.model'
 import { ProductList } from './ProductList'
 import { CartContext, UserContext } from '../App'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { ProductFilter } from './ProductFilter'
-import { EditShop } from './EditShop'
-import { Link, Outlet, Route, Routes, useNavigate, useOutletContext } from 'react-router-dom'
-import { PrivetRoute } from './PrivetRoute'
+import { Link, Outlet, useOutletContext } from 'react-router-dom'
 
 
 
@@ -42,11 +40,9 @@ export const ShopApp: React.FC = () => {
     }
 
     const [editState, setEditState] = useState({ isEdit: false, path: 'edit' })
-    const navigate = useNavigate()
     const toggleList = () => {
         console.log('editState', editState)
         const newState = { isEdit: !editState.isEdit, path: editState.path === 'edit' ? '' : 'edit' }
-        navigate(editState.path)
         setEditState(newState)
     }
 
@@ -56,8 +52,8 @@ export const ShopApp: React.FC = () => {
 
                 <>
                     <ProductFilter {...filter} options={categories} />
+                    {<Link to={editState.path} onClick={toggleList}>{editState.isEdit ? 'Shop' : 'Edit Shop'}</Link>}
                     {!editState.isEdit && <ProductList products={products} onAddToCart={onAddToCart} />}
-                    {<button onClick={toggleList}>{editState.isEdit ? 'Shop' : 'Edit Shop'}</button>}
 
                     <Outlet context={{ products }} />
 
@@ -66,6 +62,8 @@ export const ShopApp: React.FC = () => {
         </section>
     )
 }
+
+
 interface OutletCtx {
     products: Product[]
 }
