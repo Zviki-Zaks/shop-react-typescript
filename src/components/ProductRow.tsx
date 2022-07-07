@@ -4,7 +4,7 @@ import { CartProduct, Product } from '../models/product.model'
 
 interface Props {
     product: Product | CartProduct,
-    dispatch: React.Dispatch<CartAction>
+    dispatch?: React.Dispatch<CartAction>
 }
 
 export const ProductRow = ({ product, dispatch }: Props) => {
@@ -14,7 +14,7 @@ export const ProductRow = ({ product, dispatch }: Props) => {
         <tr className="product-row">
             <td>{product.name}</td>
             <td>{price}</td>
-            {product.count &&
+            {product.count && dispatch &&
                 <td className="actions">
                     <button className="remove" onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: product.id })}>-</button>
                     <span className="count">{product.count}</span>

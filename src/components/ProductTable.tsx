@@ -5,7 +5,7 @@ import { ProductRow } from './ProductRow'
 
 interface Props {
     products: Product[] | CartProduct[],
-    dispatch: React.Dispatch<CartAction>
+    dispatch?: React.Dispatch<CartAction>
 }
 
 export const ProductTable = ({ products, dispatch }: Props) => {

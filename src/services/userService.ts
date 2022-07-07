@@ -38,7 +38,7 @@ function signup(userCard: UserCart): Promise<User> {
         id: _makeId(),
         username,
         password,
-        isAdmin: false,
+        isAdmin: true,
         lastActivity: []
     }
     const users: User[] = _load() || []

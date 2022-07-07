@@ -3,8 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import './assets/css/styles.scss';
 import { AppHeader } from './components/AppHeader';
 import { CartPage } from './components/CartPage';
+import { EditShop } from './components/EditShop';
 import { Login } from './components/LoginPage';
-import ShopApp from './components/ShopApp';
+import { PrivetRoute } from './components/PrivetRoute';
+import { ShopApp } from './components/ShopApp';
 import { useCartReducer } from './hooks/useCartReducer';
 import { Cart } from './models/cart.model';
 import { CartAction } from './models/cartAction.model';
@@ -34,7 +36,11 @@ const App: React.FC = () => {
         <CartContext.Provider value={{ cart, cartDispatch }}>
           <AppHeader />
           <Routes>
-            <Route path='' element={<ShopApp />} />
+            <Route path='' element={<ShopApp />} >
+              <Route element={<PrivetRoute condition={!!loggedInUser?.isAdmin} redirect={'/login'} />}>
+                <Route path='edit' element={<EditShop />} />
+              </Route>
+            </Route>
             <Route path='login' element={<Login />} />
             <Route path='cart' element={<CartPage />} />
           </Routes>

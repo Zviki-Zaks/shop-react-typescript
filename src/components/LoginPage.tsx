@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../App'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { userService } from '../services/userService'
@@ -9,15 +9,15 @@ export const Login: React.FC = () => {
         username: '',
         password: ''
     })
-    const navigate = useNavigate()
     const { loggedInUser, setLoggedInUser } = useContext(UserContext)
 
-    useEffect(() => {
-        if (loggedInUser) {
-            navigate('/')
-        }
+    // const navigate = useNavigate()
+    // useEffect(() => {
+    //     if (loggedInUser) {
+    //         navigate('/')
+    //     }
 
-    }, [loggedInUser])
+    // }, [loggedInUser])
 
 
     const login = async (type: string) => {
@@ -25,7 +25,10 @@ export const Login: React.FC = () => {
             if (!fields.username || !fields.password) return handleError('Something missing')
             const user = type === 'login' ? await userService.login(fields) :
                 type === 'signup' ? await userService.signup(fields) : null
-            if (user) setLoggedInUser(user)
+            if (user) {
+                setLoggedInUser(user)
+                console.log('user', user)
+            }
         } catch (err) {
             console.log(err)
             return handleError('Username or password incorrect')
