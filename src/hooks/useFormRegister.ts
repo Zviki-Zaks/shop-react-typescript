@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 
 export const useFormRegister = <F>(state: F, cb = (fields: F) => { }) => {
     const [fields, setFields] = useState(state)
-    const handelChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const handelChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const filed = target.name
         const value = target.type === 'number' ? (+target.value || '') : target.value
         setFields({ ...fields, [filed]: value })

@@ -9,7 +9,7 @@ interface Props {
         name: string;
         id: string;
         value: string;
-        onChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
+        onChange: ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     },
     options: string[]
 }

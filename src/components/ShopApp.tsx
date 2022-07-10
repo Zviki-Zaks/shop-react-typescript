@@ -20,7 +20,7 @@ export const ShopApp: React.FC = () => {
     const [categories, setCategories] = useState<string[] | null>()
     useEffect(() => {
         const categories = products?.reduce((list: string[], product: Product) => {
-            if (list.includes(product.category)) list.push(product.category)
+            if (!list.includes(product.category)) list.push(product.category)
             return list
         }, [])
         setCategories(categories)
@@ -48,7 +48,7 @@ export const ShopApp: React.FC = () => {
 
     return (
         <section className="shop-app container">
-            {categories && products &&
+            {products && categories &&
 
                 <>
                     <ProductFilter {...filter} options={categories} />
