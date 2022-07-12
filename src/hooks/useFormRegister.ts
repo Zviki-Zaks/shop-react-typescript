@@ -27,5 +27,5 @@ export const useFormRegister = <F>(state: F, cb = (fields: F) => { }) => {
             onChange: handelChange
         }
     }
-    return { fields, register }
+    return { fields, register, setFields }
 }

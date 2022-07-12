@@ -1,17 +1,24 @@
 export interface Product {
     id: string,
-    name: string,
+    name: string
     price: number
     category: string
-    inStock?: number,
-    img?: string,
+    inStock?: number
+    img?: string
     count?: number
 }
 export interface CartProduct {
-    id: string,
-    name: string,
+    id: string
+    name: string
     price: number
     category: string
-    img?: string,
+    img?: string
     count?: number
+}
+export interface NewProduct {
+    name: string
+    price: number | string
+    category: string
+    inStock?: number
+    img?: string
 }

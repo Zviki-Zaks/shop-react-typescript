@@ -32,11 +32,11 @@ async function remove() {
 
 }
 
-async function post() {
+async function post(product: Product) {
 
 }
 
-async function put() {
+async function put(product: Product) {
 
 }
 

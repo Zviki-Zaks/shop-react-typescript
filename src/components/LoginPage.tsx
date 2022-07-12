@@ -11,15 +11,6 @@ export const Login: React.FC = () => {
     })
     const { loggedInUser, setLoggedInUser } = useContext(UserContext)
 
-    // const navigate = useNavigate()
-    // useEffect(() => {
-    //     if (loggedInUser) {
-    //         navigate('/')
-    //     }
-
-    // }, [loggedInUser])
-
-
     const login = async (type: string) => {
         try {
             if (!fields.username || !fields.password) return handleError('Something missing')
@@ -27,10 +18,8 @@ export const Login: React.FC = () => {
                 type === 'signup' ? await userService.signup(fields) : null
             if (user) {
                 setLoggedInUser(user)
-                console.log('user', user)
             }
         } catch (err) {
-            console.log(err)
             return handleError('Username or password incorrect')
         }
     }

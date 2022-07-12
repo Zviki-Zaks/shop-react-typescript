@@ -41,7 +41,6 @@ export const ShopApp: React.FC = () => {
 
     const [editState, setEditState] = useState({ isEdit: false, path: 'edit' })
     const toggleList = () => {
-        console.log('editState', editState)
         const newState = { isEdit: !editState.isEdit, path: editState.path === 'edit' ? '' : 'edit' }
         setEditState(newState)
     }

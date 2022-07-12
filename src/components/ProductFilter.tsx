@@ -18,7 +18,10 @@ export const ProductFilter: React.FC<Props> = ({ register, options }) => {
     return (
         <div className="product-filter">
             <input type="text" {...register('name')} placeholder="Search by name" />
-            <input type="text" {...register('category')} placeholder="Search by category" />
+            <input list="categories" {...register('category')} placeholder="Search by category" />
+            <datalist id="categories">
+                {options.map(option => <option value={option} key={option} />)}
+            </datalist>
         </div>
     )
 }
