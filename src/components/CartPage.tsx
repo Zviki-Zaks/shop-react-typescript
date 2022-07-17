@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { CartContext } from '../App'
 import { ProductTable } from './ProductTable'
 import { CartEnd } from './CartEnd'
+import { CartContext } from '../context/ContextProvider'
 
 export const CartPage: React.FC = () => {
     const { cart, cartDispatch } = useContext(CartContext)

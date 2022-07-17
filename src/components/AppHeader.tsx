@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { CartContext } from '../App'
+import { CartContext } from '../context/ContextProvider'
 
 export const AppHeader = () => {
     const { cart } = useContext(CartContext)

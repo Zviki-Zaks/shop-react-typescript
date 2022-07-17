@@ -1,7 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Navigate, Outlet, useOutletContext } from 'react-router-dom'
-import { UserContext } from '../App'
-import { useProducts } from './ShopApp'
 
 interface Props {
     condition: boolean

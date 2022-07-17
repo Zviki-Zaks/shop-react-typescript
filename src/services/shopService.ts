@@ -21,12 +21,10 @@ async function query(filterBy?: { name?: string, category?: string }): Promise<P
 }
 
 async function getById(productId: string): Promise<Product> {
-    console.log('productId', productId)
     const products = _load()
-    const product = products?.find(product => product.id === productId)
-    console.log('product', product)
 
     return new Promise(async (resolve, reject) => {
+        const product = products?.find(product => product.id === productId)
         product ? resolve(product) : reject()
     })
 }
