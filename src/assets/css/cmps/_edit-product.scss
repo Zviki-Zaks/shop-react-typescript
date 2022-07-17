@@ -1,0 +1,14 @@
+.edit-product {
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: inherit;
+        input {
+            width: 100px;
+        }
+        .actions {
+            display: inline-block;
+            flex-basis: auto;
+        }
+    }
+}

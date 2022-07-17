@@ -21,23 +21,42 @@ async function query(filterBy?: { name?: string, category?: string }): Promise<P
 }
 
 async function getById(productId: string): Promise<Product> {
+    console.log('productId', productId)
+    const products = _load()
+    const product = products?.find(product => product.id === productId)
+    console.log('product', product)
+
     return new Promise(async (resolve, reject) => {
-        const products = await query()
-        const product = products.find(product => product.id === productId)
         product ? resolve(product) : reject()
     })
 }
 
-async function remove() {
+async function remove(productId: string) {
 
 }
 
-async function post(product: Product) {
-
+async function post(newProduct: Product) {
+    newProduct.id = _makeId()
+    const products = _load()
+    return new Promise<Product>((resolve, reject) => {
+        if (products) {
+            products.push(newProduct)
+            _save(products)
+            return resolve(newProduct)
+        } else reject()
+    })
 }
 
-async function put(product: Product) {
-
+async function put(newProduct: Product) {
+    const products = _load()
+    return new Promise<Product>((resolve, reject) => {
+        if (products) {
+            const idx = products?.findIndex(product => product.id === newProduct.id)
+            if (idx) products?.splice(idx, 1, newProduct)
+            _save(products)
+            return resolve(newProduct)
+        } else reject()
+    })
 }
 
 function _filter(items: Product[], { name, category }: { name?: string, category?: string }): Product[] {

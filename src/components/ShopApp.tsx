@@ -11,7 +11,7 @@ import { Link, Outlet, useOutletContext } from 'react-router-dom'
 
 export const ShopApp: React.FC = () => {
 
-    const [products, setProducts] = useState<Product[] | null>(null)
+    const [products, setProducts] = useState<Product[]>(null!)
     const filter = useFormRegister({ name: '', category: '' })
     useEffect(() => {
         loadProducts(filter.fields)
@@ -54,7 +54,7 @@ export const ShopApp: React.FC = () => {
                     {<Link to={editState.path} onClick={toggleList}>{editState.isEdit ? 'Shop' : 'Edit Shop'}</Link>}
                     {!editState.isEdit && <ProductList products={products} onAddToCart={onAddToCart} />}
 
-                    <Outlet context={{ products }} />
+                    <Outlet context={{ products, setProducts }} />
 
                 </>
             }
@@ -65,6 +65,7 @@ export const ShopApp: React.FC = () => {
 
 interface OutletCtx {
     products: Product[]
+    setProducts: React.Dispatch<React.SetStateAction<Product[]>>
 }
 export const useProducts = () => {
     return useOutletContext<OutletCtx>()

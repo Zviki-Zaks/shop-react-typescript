@@ -16,8 +16,9 @@ export interface CartProduct {
     count?: number
 }
 export interface NewProduct {
+    id: string
     name: string
-    price: number | string
+    price: number | ''
     category: string
     inStock?: number
     img?: string
