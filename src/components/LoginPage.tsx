@@ -23,6 +23,9 @@ export const Login: React.FC = () => {
                 type === 'signup' ? await userService.signup(fields) : null
             if (user) {
                 setLoggedInUser(user)
+                if (user.lastCart && !cart.products.length)
+                    if (typeof cartDispatch === 'function')
+                        cartDispatch({ type: 'RESTART_CART', payload: user.lastCart })
                 navigate('/')
             }
         } catch (err) {

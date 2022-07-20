@@ -42,7 +42,8 @@ const cartReducer = (state: Cart, action: Action) => {
       } else return state
 
     case 'RESTART_CART':
-      const newCart = action.payload ? initialState : action.payload
+      const newCart = action.payload === null ? initialState : action.payload as unknown as Cart
+      console.log('newCart', newCart)
       return { ...newCart }
 
     default:
@@ -63,7 +64,18 @@ export const useCartReducer = () => {
       if (action.type === 'ADD_TO_CART' && !product.inStock) return alert('Not in stock')
       else return dispatch({ ...action, payload: product })
     }
-    else if (action.type === 'RESTART_CART') return dispatch({ ...action, payload: action.payload as unknown as Product || null as unknown as Product })
+    else if (action.type === 'RESTART_CART') {
+      if (!action.payload) return dispatch({ ...action, payload: null as unknown as Product })
+      else {
+        const isKeep: boolean = window.confirm('Want to keep your previous cart?')
+        if (isKeep) {
+          console.log(true)
+          return dispatch({ ...action, payload: action.payload as unknown as Product })
+        }
+
+
+      }
+    }
   }
   return { cart, cartDispatch }
 }
