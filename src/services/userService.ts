@@ -1,4 +1,5 @@
 import { rejects } from "assert";
+import { Cart } from "../models/cart.model";
 import { User } from "../models/user.model";
 
 export const userService = {
@@ -27,9 +28,21 @@ function login(userCard: UserCart): Promise<User> | void {
     }
 }
 
-function logout(userId: string) {
-    loginUser = null
-    return new Promise(resolve => resolve(userId))
+function logout(userId: string, cart?: Cart) {
+    return new Promise(resolve => {
+        if (cart) {
+            const users = _load()
+            const user = users?.find(user => user.id === userId && user.id === loginUser?.id)
+            if (user) {
+                user.lastCart = cart
+                const idx = users?.findIndex(user => user.id === userId)
+                if (idx) users?.splice(idx, 1, user)
+                if (users) _save(users)
+            }
+        }
+        loginUser = null
+        resolve(userId)
+    })
 }
 
 function signup(userCard: UserCart): Promise<User> {

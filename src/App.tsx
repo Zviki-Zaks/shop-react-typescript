@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './assets/css/styles.scss';
 import { AppHeader } from './components/AppHeader';
@@ -16,10 +16,12 @@ const App: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null)
 
 
+
+
+
   return (
     <div className="App">
       <ContextProvider cartCtx={{ cart, cartDispatch }} userCtx={{ loggedInUser, setLoggedInUser }} >
-
         <AppHeader />
         <Routes>
           <Route path='' element={<ShopApp />} >

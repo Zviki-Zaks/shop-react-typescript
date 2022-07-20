@@ -7,7 +7,8 @@ import { CartProduct, Product } from "../models/product.model"
 interface Action { type: string, payload: Product }
 
 const cartReducer = (state: Cart, action: Action) => {
-  let currProduct = state.products.find(product => product.id === action.payload.id)
+
+  let currProduct = state.products.find(product => { if (action.payload?.id) return product.id === action.payload.id })
   switch (action.type) {
 
     case 'ADD_TO_CART':
@@ -39,6 +40,11 @@ const cartReducer = (state: Cart, action: Action) => {
           amount
         }
       } else return state
+
+    case 'RESTART_CART':
+      const newCart = action.payload ? initialState : action.payload
+      return { ...newCart }
+
     default:
       return state
   }
@@ -52,9 +58,12 @@ const initialState: Cart = {
 export const useCartReducer = () => {
   const [cart, dispatch] = useReducer(cartReducer, initialState)
   const cartDispatch = async (action: CartAction) => {
-    const product = await shopService.getById(action.payload)
-    if (action.type === 'ADD_TO_CART' && !product.inStock) return alert('Not in stock')
-    else return dispatch({ ...action, payload: product })
+    if (typeof action.payload === 'string') {
+      const product = await shopService.getById(action.payload)
+      if (action.type === 'ADD_TO_CART' && !product.inStock) return alert('Not in stock')
+      else return dispatch({ ...action, payload: product })
+    }
+    else if (action.type === 'RESTART_CART') return dispatch({ ...action, payload: action.payload as unknown as Product || null as unknown as Product })
   }
   return { cart, cartDispatch }
 }

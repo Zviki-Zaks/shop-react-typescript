@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/ContextProvider'
+import { CartContext, UserContext } from '../context/ContextProvider'
 import { useFormRegister } from '../hooks/useFormRegister'
+import { Product } from '../models/product.model'
 import { userService } from '../services/userService'
 
 export const Login: React.FC = () => {
@@ -10,6 +11,7 @@ export const Login: React.FC = () => {
         password: ''
     })
     const { loggedInUser, setLoggedInUser } = useContext(UserContext)
+    const { cart, cartDispatch } = useContext(CartContext)
 
     const navigate = useNavigate()
 
@@ -31,7 +33,11 @@ export const Login: React.FC = () => {
     const logout = async (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         ev.preventDefault()
         if (loggedInUser)
-            await userService.logout(loggedInUser.id)
+            if (cart.products.length) {
+                await userService.logout(loggedInUser.id, cart)
+                if (typeof cartDispatch === 'function')
+                    cartDispatch({ type: 'RESTART_CART' })
+            } else await userService.logout(loggedInUser.id)
         setLoggedInUser(null)
     }
 
