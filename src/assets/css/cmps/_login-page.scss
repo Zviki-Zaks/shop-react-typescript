@@ -7,24 +7,31 @@
         width: 250px;
         gap: 5px;
 
+        button {
+            padding: 0.5em 1em;
+            border: 1px solid grayscale($primary);
+            border-radius: 3px;
+        }
         .btns {
             padding: rem(10px);
             display: flex;
             justify-content: space-around;
-            button {
-                padding: 0.5em 1em;
-                border: 1px solid grayscale($primary);
-                border-radius: 3px;
-                &.login-btn {
-                    background-color: rgb(89, 231, 89);
-                }
-                &.signup-btn {
-                    background-color: rgb(25, 116, 253);
-                }
+            .login-btn {
+                background-color: rgb(89, 231, 89);
+            }
+            .signup-btn {
+                background-color: rgb(25, 116, 253);
             }
         }
         .error {
             color: red;
+        }
+        .user-name {
+            align-self: center;
+            margin-block-end: 10px;
+        }
+        .logout-btn {
+            align-self: center;
         }
     }
 }
