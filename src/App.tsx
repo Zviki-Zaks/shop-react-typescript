@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './assets/css/styles.scss';
 import { AppHeader } from './components/AppHeader';
-import { CartPage } from './components/CartPage';
+import { CartPage } from './pages/CartPage';
 import { EditShop } from './components/EditShop';
-import { Login } from './components/LoginPage';
-import { PrivetRoute } from './components/PrivetRoute';
-import { ShopApp } from './components/ShopApp';
+import { Login } from './pages/LoginPage';
+import { PrivetRoute } from './components/common/PrivetRoute';
+import { ShopApp } from './pages/ShopApp';
 import { ContextProvider } from './context/ContextProvider';
 import { useCartReducer } from './hooks/useCartReducer';
 import { User } from './models/user.model';

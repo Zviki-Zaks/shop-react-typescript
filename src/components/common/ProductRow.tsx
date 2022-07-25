@@ -1,6 +1,6 @@
 import React from 'react'
-import { CartAction } from '../models/cartAction.model'
-import { CartProduct, Product } from '../models/product.model'
+import { CartAction } from '../../models/cartAction.model'
+import { CartProduct, Product } from '../../models/product.model'
 
 interface Props {
     product: Product,
@@ -8,7 +8,7 @@ interface Props {
     selectProduct?: (productId: string) => void
 }
 
-export const ProductRow = ({ product, dispatch, selectProduct }: Props) => {
+export const ProductRow: React.FC<Props> = ({ product, dispatch, selectProduct }) => {
     const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)
 
     return (

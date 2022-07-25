@@ -1,6 +1,6 @@
 import React from 'react'
-import { CartAction } from '../models/cartAction.model'
-import { CartProduct, Product } from '../models/product.model'
+import { CartAction } from '../../models/cartAction.model'
+import { Product } from '../../models/product.model'
 import { ProductRow } from './ProductRow'
 
 interface Props {
@@ -19,7 +19,6 @@ export const ProductTable = ({ products, dispatch, selectProduct }: Props) => {
                         <ProductRow product={product} dispatch={dispatch} selectProduct={selectProduct} key={product.id} />
                     )}
                 </tbody>
-                <tfoot><tr></tr></tfoot>
             </table>
         </section>
     )

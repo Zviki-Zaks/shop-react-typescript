@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { shopService } from '../services/shopService'
 import { Product } from '../models/product.model'
-import { ProductList } from './ProductList'
+import { ProductList } from '../components/ProductList'
 import { useFormRegister } from '../hooks/useFormRegister'
-import { ProductFilter } from './ProductFilter'
+import { ProductFilter } from '../components/ProductFilter'
 import { Link, Outlet, useOutletContext } from 'react-router-dom'
 import { CartContext, UserContext } from '../context/ContextProvider'
 

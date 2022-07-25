@@ -3,8 +3,8 @@ import { OutletProps } from 'react-router-dom'
 import { Product } from '../models/product.model'
 import { shopService } from '../services/shopService'
 import { EditProduct } from './EditProduct'
-import { ProductTable } from './ProductTable'
-import { useProducts } from './ShopApp'
+import { ProductTable } from './common/ProductTable'
+import { useProducts } from '../pages/ShopApp'
 
 interface Props {
     products?: Product[]

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { ProductTable } from './ProductTable'
-import { CartEnd } from './CartEnd'
+import { ProductTable } from '../components/common/ProductTable'
+import { CartEnd } from '../components/CartEnd'
 import { CartContext } from '../context/ContextProvider'
 
 export const CartPage: React.FC = () => {
