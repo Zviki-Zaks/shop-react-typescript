@@ -3,7 +3,7 @@ import { Product } from "../models/product.model"
 import { ProductAction } from "../models/productAction"
 import { shopService } from "../services/shopService"
 
-interface ProductsState {
+export interface ProductState {
     products: Product[] | null
     currProduct: Product | null
 }
@@ -29,7 +29,7 @@ interface SaveProduct {
 
 
 
-const productReducer = (state: ProductsState, action: Action) => {
+const productReducer = (state: ProductState, action: Action) => {
     switch (action.type) {
         case 'SET_PRODUCTS':
             return { ...state, products: action.payload }
@@ -62,7 +62,7 @@ const productReducer = (state: ProductsState, action: Action) => {
     }
 }
 
-const initialState: ProductsState = {
+const initialState: ProductState = {
     products: null,
     currProduct: null
 }

@@ -10,18 +10,19 @@ import { ShopApp } from './pages/ShopApp';
 import { ContextProvider } from './context/ContextProvider';
 import { useCartReducer } from './hooks/useCartReducer';
 import { User } from './models/user.model';
+import { useProductReducer } from './hooks/useProductReducer';
 
 const App: React.FC = () => {
   const { cart, cartDispatch } = useCartReducer()
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null)
-
+  const { productState, productDispatch } = useProductReducer()
 
 
 
 
   return (
     <div className="App">
-      <ContextProvider cartCtx={{ cart, cartDispatch }} userCtx={{ loggedInUser, setLoggedInUser }} >
+      <ContextProvider cartCtx={{ cart, cartDispatch }} userCtx={{ loggedInUser, setLoggedInUser }} productCtx={{ productState, productDispatch }}>
         <AppHeader />
         <Routes>
           <Route path='' element={<ShopApp />} >
