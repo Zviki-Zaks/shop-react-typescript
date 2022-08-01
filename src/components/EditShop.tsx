@@ -20,8 +20,15 @@ export const EditShop: React.FC<OutletProps> = () => {
 
     return (
         <section className="edit-shop">
-            {productState.products && <ProductTable products={productState.products} selectProduct={selectProduct} />}
-            <EditProduct product={productState.currProduct} unSelectProduct={selectProduct} saveProduct={saveProduct} removeProduct={removeProduct} />
+            {productState.products &&
+                <>
+                    {productState.products.length ?
+                        <ProductTable products={productState.products} selectProduct={selectProduct} /> :
+                        null
+                    }
+                    <EditProduct product={productState.currProduct} unSelectProduct={selectProduct} saveProduct={saveProduct} removeProduct={removeProduct} />
+                </>
+            }
         </section>
     )
 }

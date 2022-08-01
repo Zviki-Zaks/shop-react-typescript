@@ -11,6 +11,7 @@ import { ContextProvider } from './context/ContextProvider';
 import { useCartReducer } from './hooks/useCartReducer';
 import { User } from './models/user.model';
 import { useProductReducer } from './hooks/useProductReducer';
+import { ShopDisplay } from './components/ShopDisplay';
 
 const App: React.FC = () => {
   const { cart, cartDispatch } = useCartReducer()
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <AppHeader />
         <Routes>
           <Route path='' element={<ShopApp />} >
+            <Route index element={<ShopDisplay />} />
             <Route element={<PrivetRoute condition={!!loggedInUser?.isAdmin} redirect={'/login'} />}>
               <Route path='edit' element={<EditShop />} />
             </Route>

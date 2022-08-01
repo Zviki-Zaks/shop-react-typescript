@@ -12,16 +12,15 @@ export const userService = {
 interface UserCart { username: string, password?: string }
 
 const KEY = 'SHOP_USERS'
-let loginUser: User | null = null
+let loggedinUser: User | null = null
 
 function login(userCard: UserCart): Promise<User> | void {
     try {
         const user = _load()?.find(user => user.username === userCard.username && user.password === userCard.password)
         delete user?.password
         if (user) {
-            loginUser = user
+            loggedinUser = user
             return new Promise((resolve, reject) => resolve(user))
-            // return Promise.resolve(user)
         } else throw new Error()
     } catch (err) {
         throw new Error("Can`t login");
@@ -32,7 +31,7 @@ function logout(userId: string, cart?: Cart) {
     return new Promise(resolve => {
         if (cart) {
             const users = _load()
-            const user = users?.find(user => user.id === userId && user.id === loginUser?.id)
+            const user = users?.find(user => user.id === userId && user.id === loggedinUser?.id)
             if (user) {
                 user.lastCart = cart
                 const idx = users?.findIndex(user => user.id === userId)
@@ -40,7 +39,7 @@ function logout(userId: string, cart?: Cart) {
                 if (users) _save(users)
             }
         }
-        loginUser = null
+        loggedinUser = null
         resolve(userId)
     })
 }
@@ -59,14 +58,14 @@ function signup(userCard: UserCart): Promise<User> {
     _save(users)
     return new Promise((resolve, reject) => {
         delete user.password
-        loginUser = user
+        loggedinUser = user
         resolve(user)
     })
 }
 
 function getLoggedin() {
     return new Promise((resolve, reject) => {
-        resolve(loginUser)
+        resolve(loggedinUser)
     })
 }
 
