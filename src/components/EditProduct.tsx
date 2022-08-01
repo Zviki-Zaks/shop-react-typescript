@@ -1,11 +1,10 @@
-import { fireEvent } from '@testing-library/react'
 import React, { useEffect } from 'react'
 import { useFormRegister } from '../hooks/useFormRegister'
-import { NewProduct, Product } from '../models/product.model'
+import { Product } from '../models/product.model'
 
 interface Props {
     product?: Product | null,
-    unSelectProduct: (productId: string | null) => Promise<void> | undefined
+    unSelectProduct: (productId: string | null) => void
     saveProduct: (product: Product) => Promise<void>
     removeProduct: (productId: string) => Promise<void>
 }
