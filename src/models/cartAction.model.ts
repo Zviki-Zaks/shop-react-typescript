@@ -1,4 +1,16 @@
 import { Cart } from "./cart.model";
-import { Product } from "./product.model";
 
-export interface CartAction { type: string, payload?: string | Cart }
+export type CartAction = AddToCart | RemoveFromCart | RestartCart
+
+interface AddToCart {
+    type: 'ADD_TO_CART'
+    payload: string
+}
+interface RemoveFromCart {
+    type: 'REMOVE_FROM_CART'
+    payload: string
+}
+interface RestartCart {
+    type: 'RESTART_CART'
+    payload?: Cart
+}

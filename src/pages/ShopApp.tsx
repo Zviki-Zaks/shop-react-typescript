@@ -22,7 +22,7 @@ export const ShopApp: React.FC = () => {
             return list
         }, [])
         setCategories(categories)
-    }, [])
+    }, [productState.products])
 
     const [linkPath, setLinkPath] = useState('edit')
     const toggleLink = () => {
@@ -32,13 +32,10 @@ export const ShopApp: React.FC = () => {
     return (
         <section className="shop-app container">
             {productState.products && categories &&
-
                 <>
                     <ProductFilter {...filter} options={categories} />
-                    {<Link to={linkPath} onClick={toggleLink}>{linkPath === 'edit' ? 'Shop' : 'Edit Shop'}</Link>}
-
+                    <Link to={linkPath} onClick={toggleLink}>{linkPath === 'edit' ? 'Shop' : 'Edit Shop'}</Link>
                     <Outlet />
-
                 </>
             }
         </section>

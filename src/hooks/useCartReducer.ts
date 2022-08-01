@@ -2,18 +2,32 @@ import { useReducer } from "react"
 import { Cart } from "../models/cart.model"
 import { CartAction } from "../models/cartAction.model"
 import { shopService } from "../services/shopService"
-import { CartProduct, Product } from "../models/product.model"
+import { Product } from "../models/product.model"
 
-interface Action { type: string, payload: Product }
+type Action = AddToCart | RemoveFromCart | RestartCart
 
-const cartReducer = (state: Cart, action: Action) => {
+interface AddToCart {
+  type: 'ADD_TO_CART'
+  payload: Product
+}
+interface RemoveFromCart {
+  type: 'REMOVE_FROM_CART'
+  payload: Product
+}
+interface RestartCart {
+  type: 'RESTART_CART'
+  payload: Cart
+}
 
-  let currProduct = state.products.find(product => { if (action.payload?.id) return product.id === action.payload.id })
-  switch (action.type) {
+const cartReducer = (state: Cart, { type, payload }: Action) => {
+  let currProduct: Product | undefined
+  switch (type) {
 
     case 'ADD_TO_CART':
-      var amount = +(state.amount + action.payload.price).toFixed(2)
-      if (currProduct?.count) {
+      currProduct = state.products.find(product => product.id === payload.id)
+      var amount = +(state.amount + payload.price).toFixed(2)
+      if (!currProduct) return state
+      if (currProduct.count) {
         currProduct.count++
         return {
           ...state,
@@ -21,18 +35,20 @@ const cartReducer = (state: Cart, action: Action) => {
           amount
         }
       } else {
-        currProduct = action.payload
+        currProduct = payload
         currProduct.count = 1
         delete currProduct.inStock
         return { ...state, products: [...state.products, { ...currProduct }], amount }
       }
 
     case 'REMOVE_FROM_CART':
-      var amount = +(state.amount - action.payload.price).toFixed(2)
-      if (currProduct?.count === 1) {
-        return { ...state, products: [...state.products.filter(product => product.id !== action.payload.id)], amount }
+      currProduct = state.products.find(product => product.id === payload.id)
+      var amount = +(state.amount - payload.price).toFixed(2)
+      if (!currProduct) return state
+      if (currProduct.count === 1) {
+        return { ...state, products: [...state.products.filter(product => product.id !== payload.id)], amount }
       }
-      else if (typeof currProduct?.count === 'number' && currProduct.count >= 2) {
+      else if (typeof currProduct.count === 'number' && currProduct.count >= 2) {
         currProduct.count--
         return {
           ...state,
@@ -42,9 +58,7 @@ const cartReducer = (state: Cart, action: Action) => {
       } else return state
 
     case 'RESTART_CART':
-      const newCart = action.payload === null ? initialState : action.payload as unknown as Cart
-      console.log('newCart', newCart)
-      return { ...newCart }
+      return { ...payload }
 
     default:
       return state
@@ -58,22 +72,23 @@ const initialState: Cart = {
 
 export const useCartReducer = () => {
   const [cart, dispatch] = useReducer(cartReducer, initialState)
-  const cartDispatch = async (action: CartAction) => {
-    if (typeof action.payload === 'string') {
-      const product = await shopService.getById(action.payload)
-      if (action.type === 'ADD_TO_CART' && !product.inStock) return alert('Not in stock')
-      else return dispatch({ ...action, payload: product })
+  const cartDispatch = async ({ type, payload }: CartAction) => {
+    if (type === 'ADD_TO_CART') {
+      const product = await shopService.getById(payload)
+      if (!product.inStock) return alert('Not in stock')
+      else return dispatch({ type, payload: product })
     }
-    else if (action.type === 'RESTART_CART') {
-      if (!action.payload) return dispatch({ ...action, payload: null as unknown as Product })
+    else if (type === 'REMOVE_FROM_CART') {
+      const product = await shopService.getById(payload)
+      return dispatch({ type, payload: product })
+    }
+    else if (type === 'RESTART_CART') {
+      if (!payload) return dispatch({ type, payload: initialState })
       else {
         const isKeep: boolean = window.confirm('Want to keep your previous cart?')
         if (isKeep) {
-          console.log(true)
-          return dispatch({ ...action, payload: action.payload as unknown as Product })
+          return dispatch({ type, payload })
         }
-
-
       }
     }
   }
