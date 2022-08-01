@@ -30,7 +30,17 @@ async function getById(productId: string): Promise<Product> {
 }
 
 async function remove(productId: string) {
-
+    const products = _load()
+    return new Promise<string>((resolve, reject) => {
+        if (products) {
+            const idx = products.findIndex(product => product.id === productId)
+            if (idx > -1) {
+                products.splice(idx, 1)
+                _save(products)
+                return resolve(productId)
+            }
+        } else reject()
+    })
 }
 
 async function post(newProduct: Product) {
@@ -49,10 +59,12 @@ async function put(newProduct: Product) {
     const products = _load()
     return new Promise<Product>((resolve, reject) => {
         if (products) {
-            const idx = products?.findIndex(product => product.id === newProduct.id)
-            if (idx) products?.splice(idx, 1, newProduct)
-            _save(products)
-            return resolve(newProduct)
+            const idx = products.findIndex(product => product.id === newProduct.id)
+            if (idx > -1) {
+                products.splice(idx, 1, newProduct)
+                _save(products)
+                return resolve(newProduct)
+            }
         } else reject()
     })
 }
